@@ -1,0 +1,22 @@
+@model Healthcare.Models.Appointment
+
+<h2>Appointment</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Appointment Date</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@(Model.Patient?.FirstName ?? "No Patient")</td> <!-- Check for null -->
+            <td>@(Model.Doctor?.FirstName ?? "No Doctor")</td>  <!-- Check for null -->
+            <td>@Model.AppointmentDate.ToString("g")</td>
+            <td>@Model.Reason</td>
+        </tr>
+    </tbody>
+</table>
