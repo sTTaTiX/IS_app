@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
+using Healthcare.Data;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Healthcare.Controllers
@@ -134,7 +135,7 @@ namespace Healthcare.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var doctor = await _context.Doctors.FindAsync(id);
-            if(doctor != null)
+            if (doctor != null)
                 _context.Doctors.Remove(doctor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

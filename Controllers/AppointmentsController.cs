@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
+using Healthcare.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -21,6 +22,11 @@ namespace Healthcare.Controllers
         public async Task<IActionResult> Index()
         {
             // Poiščemo prvi appointment z vključitvijo pacientov in zdravnikov
+            if (_context.Appointments == null)
+            {
+                return NotFound("Appointments data not found");
+            }
+
             var appointment = await _context.Appointments
                 .Include(a => a.Patient)
                 .Include(a => a.Doctor)

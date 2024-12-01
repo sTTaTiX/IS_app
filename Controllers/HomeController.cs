@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Healthcare.Models;
+using Healthcare.Data;
+
 
 namespace Healthcare.Controllers;
 

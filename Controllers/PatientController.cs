@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;  // Uporabite modele za paciente, zdravnike, ipd.
 using Microsoft.AspNetCore.Authorization;
+using Healthcare.Data;
+
 
 namespace Healthcare.Controllers
 {
@@ -132,7 +134,7 @@ namespace Healthcare.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var patient = await _context.Patients.FindAsync(id);
-            if(patient != null)
+            if (patient != null)
                 _context.Patients.Remove(patient);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

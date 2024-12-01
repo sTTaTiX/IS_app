@@ -41,7 +41,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapRazorPages();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages(); // Za zagotovitev prijave in registracije uporabnikov (če uporabljate Razor Pages)
 
@@ -50,3 +50,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// dotnet aspnet-codegenerator identity -dc Healthcare.Data.HealthcareContext  --generateLayout
+
