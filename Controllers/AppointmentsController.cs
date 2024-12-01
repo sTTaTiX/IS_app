@@ -7,8 +7,10 @@ using Healthcare.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace Healthcare.Controllers
 {
+    [Authorize(Roles = "Admin, Doctor, Patient")]
     public class AppointmentsController : Controller
     {
         private readonly HealthcareContext _context;

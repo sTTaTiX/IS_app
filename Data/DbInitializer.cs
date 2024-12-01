@@ -55,7 +55,7 @@ namespace Healthcare.Data
             var roles = new IdentityRole[]
             {
                 new IdentityRole{Id="1", Name="Administrator", NormalizedName="ADMINISTRATOR"},
-                new IdentityRole{Id="2", Name="Manager", NormalizedName="MANAGER"},
+                new IdentityRole{Id="2", Name="Patient", NormalizedName="PATIENT"},
                 new IdentityRole{Id="3", Name="Staff", NormalizedName="STAFF"}
             };
             context.Roles.AddRange(roles);
@@ -80,7 +80,7 @@ namespace Healthcare.Data
             if (!context.Users.Any(u => u.UserName == user.UserName))
             {
                 var password = new PasswordHasher<HealthcareUser>();
-                user.PasswordHash = password.HashPassword(user, "Testni123!");
+                user.PasswordHash = password.HashPassword(user, "123!");
                 context.Users.Add(user);
             }
             context.SaveChanges();
