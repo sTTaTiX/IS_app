@@ -21,7 +21,7 @@ namespace Healthcare.Controllers
         }
 
         // GET: Appointments
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             // Poiščemo prvi appointment z vključitvijo pacientov in zdravnikov
             if (_context.Appointments == null)
@@ -43,6 +43,16 @@ namespace Healthcare.Controllers
 
             // Če so podatki v redu, pošljite appointment v pogled
             return View(appointment);
+        }
+        */
+        public async Task<IActionResult> Index()
+        {
+            if (_context.Appointments == null)
+            {
+                return NotFound("Appointments data not found");
+            }
+            return View(await _context.Appointments.ToListAsync());
+            // Passes the list to the view
         }
 
 

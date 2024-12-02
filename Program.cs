@@ -51,5 +51,9 @@ app.MapControllerRoute(
 
 app.Run();
 
-// dotnet aspnet-codegenerator identity -dc Healthcare.Data.HealthcareContext  --generateLayout
 
+//dotnet aspnet-codegenerator controller -name AppointmentController -m Healthcare.Models.Appointment -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
+
+//dotnet aspnet-codegenerator controller -name PatientsController -m Healthcare.Models.Patient -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
+
+//dotnet aspnet-codegenerator controller -name DoctorController -m Healthcare.Models.Doctor -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
