@@ -57,3 +57,5 @@ app.Run();
 //dotnet aspnet-codegenerator controller -name PatientsController -m Healthcare.Models.Patient -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
 
 //dotnet aspnet-codegenerator controller -name DoctorController -m Healthcare.Models.Doctor -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
+
+//dotnet aspnet-codegenerator controller -name HealthcareUser -m Healthcare.Models.HealthcareUser -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers

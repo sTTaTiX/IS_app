@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Healthcare.Controllers
 {
-    [Authorize(Roles = "Admin, Doctor, Patient")]
+    [Authorize(Roles = "Administrator")]
     public class AppointmentsController : Controller
     {
         private readonly HealthcareContext _context;
