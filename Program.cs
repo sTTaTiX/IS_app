@@ -2,8 +2,11 @@ using Healthcare.Data;
 using Healthcare.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<HealthcareContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HealthcareContext") ?? throw new InvalidOperationException("Connection string 'HealthcareContext' not found.")));
 
 // Nastavite spremenljivko connectionString za .UseSqlServer(connectionString)
 var connectionString = builder.Configuration.GetConnectionString("HealthcareContext"); // Spremenite na HealthcareContext
@@ -41,7 +44,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapRazorPages();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages(); // Za zagotovitev prijave in registracije uporabnikov (če uporabljate Razor Pages)
 
@@ -50,3 +53,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+//dotnet aspnet-codegenerator controller -name AppointmentController -m Healthcare.Models.Appointment -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
+
+//dotnet aspnet-codegenerator controller -name PatientsController -m Healthcare.Models.Patient -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
+
+//dotnet aspnet-codegenerator controller -name DoctorController -m Healthcare.Models.Doctor -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers

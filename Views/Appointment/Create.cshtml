@@ -1,0 +1,123 @@
+@model Healthcare.Models.Appointment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 20px;
+}
+
+h4 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+hr {
+    border: 1px solid #ccc;
+}
+
+.row {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.control-label {
+    font-weight: bold;
+    color: #555;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AppointmentDate" class="control-label"></label>
+                <input asp-for="AppointmentDate" class="form-control" />
+                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reason" class="control-label"></label>
+                <input asp-for="Reason" class="form-control" />
+                <span asp-validation-for="Reason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientID" class="control-label"></label>
+                <select asp-for="PatientID" class ="form-control" asp-items="ViewBag.PatientID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DoctorID" class="control-label"></label>
+                <select asp-for="DoctorID" class ="form-control" asp-items="ViewBag.DoctorID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+</body>
+</html>

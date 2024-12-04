@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Your Roles";
+}
+
+<h2>Your Roles</h2>
+
+@if (ViewData["UserRoles"] != null)
+{
+    <p>You have the following roles: @ViewData["UserRoles"]</p>
+}
+else
+{
+    <p>You don't have any roles assigned.</p>
+}

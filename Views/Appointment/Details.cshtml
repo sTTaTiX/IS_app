@@ -1,0 +1,109 @@
+@model Healthcare.Models.Appointment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    padding: 20px;
+}
+
+h4 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+hr {
+    border: 1px solid #ccc;
+}
+
+dl.row {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+dt {
+    font-weight: bold;
+    color: #555;
+    padding-bottom: 5px;
+}
+
+dd {
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+div a:first-child {
+    font-weight: bold;
+}
+
+div a:last-child {
+    margin-left: 5px;
+}
+
+div {
+    margin-top: 20px;
+}
+
+    </style>
+</head>
+<body>
+
+<div>
+    <h4>Appointment</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AppointmentDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AppointmentDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Reason)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Reason)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Patient.PatientID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Doctor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Doctor.DoctorID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.AppointmentID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>
