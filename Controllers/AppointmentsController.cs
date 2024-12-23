@@ -3,11 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
+using Healthcare.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace Healthcare.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AppointmentsController : Controller
     {
         private readonly HealthcareContext _context;
@@ -18,9 +21,14 @@ namespace Healthcare.Controllers
         }
 
         // GET: Appointments
-        public async Task<IActionResult> Index()
+        /*public async Task<IActionResult> Index()
         {
             // Poiščemo prvi appointment z vključitvijo pacientov in zdravnikov
+            if (_context.Appointments == null)
+            {
+                return NotFound("Appointments data not found");
+            }
+
             var appointment = await _context.Appointments
                 .Include(a => a.Patient)
                 .Include(a => a.Doctor)
@@ -35,6 +43,16 @@ namespace Healthcare.Controllers
 
             // Če so podatki v redu, pošljite appointment v pogled
             return View(appointment);
+        }
+        */
+        public async Task<IActionResult> Index()
+        {
+            if (_context.Appointments == null)
+            {
+                return NotFound("Appointments data not found");
+            }
+            return View(await _context.Appointments.ToListAsync());
+            // Passes the list to the view
         }
 
 

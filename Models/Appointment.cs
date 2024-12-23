@@ -1,5 +1,6 @@
 namespace Healthcare.Models;
 
+
 public class Appointment
 {
     public int AppointmentID { get; set; }

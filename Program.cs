@@ -2,37 +2,45 @@ using Healthcare.Data;
 using Healthcare.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<HealthcareContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("HealthcareContext") ?? throw new InvalidOperationException("Connection string 'HealthcareContext' not found.")));
 
-// Nastavite spremenljivko connectionString za .UseSqlServer(connectionString)
-var connectionString = builder.Configuration.GetConnectionString("HealthcareContext"); // Spremenite na HealthcareContext
+// Set up the connection string for the database
+var connectionString = builder.Configuration.GetConnectionString("HealthcareContext");
 
-// Dodajte storitve v zabojnik.
+// Add services to the container
 builder.Services.AddControllersWithViews();
 
-// Nastavite DbContext za HealthcareContext
+// Configure DbContext for HealthcareContext
 builder.Services.AddDbContext<HealthcareContext>(options =>
-    options.UseSqlServer(connectionString)); // Poskrbite, da uporabljate pravilno povezavo
+    options.UseSqlServer(connectionString));
 
-// Prilagodite dodajanje identitete za HealthcareUser, vključite vloge
+// Configure Identity with roles
 builder.Services.AddDefaultIdentity<HealthcareUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>() // Dodajte vloge
-    .AddEntityFrameworkStores<HealthcareContext>(); // Povežite z vašim DbContext
+    .AddRoles<IdentityRole>() // Enable roles
+    .AddEntityFrameworkStores<HealthcareContext>(); // Link to your DbContext
 
+// Build the application
 var app = builder.Build();
 
-// Seed podatkovne baze s pomočjo DbInitializer
+// Seed the database with initial data, including roles
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetRequiredService<HealthcareContext>();
-    DbInitializer.Initialize(context);
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<HealthcareContext>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+        await SeedData.InitializeAsync(context, roleManager); // Call a method to seed data
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred seeding the DB.");
+    }
 }
 
-// Konfigurirajte HTTP zahteve
+// Configure HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -46,17 +54,11 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapRazorPages(); // Za zagotovitev prijave in registracije uporabnikov (če uporabljate Razor Pages)
+
+app.MapRazorPages(); // For user login and registration (if using Razor Pages)
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-//dotnet aspnet-codegenerator controller -name AppointmentController -m Healthcare.Models.Appointment -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
-
-//dotnet aspnet-codegenerator controller -name PatientsController -m Healthcare.Models.Patient -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers
-
-//dotnet aspnet-codegenerator controller -name DoctorController -m Healthcare.Models.Doctor -dc Healthcare.Data.HealthcareContext -udl -outDir Controllers

@@ -1,5 +1,6 @@
-using Healthcare.Models;
+using Healthcare.Models;  // Uporaba Healthcare.Models za HealthcareUser
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -11,6 +12,7 @@ namespace Healthcare.Data
         {
             context.Database.EnsureCreated();
 
+            // Preveri, če baza že vsebuje paciente
             if (context.Patients.Any())
             {
                 return; // Podatki že obstajajo
@@ -19,9 +21,11 @@ namespace Healthcare.Data
             // Dodajanje pacientov
             var patients = new Patient[]
             {
-                new Patient { FirstName = "Carson", LastName = "Alexander", DateOfBirth = DateTime.Parse("1990-09-01"), Address = "123 Main St", Email = "carson.alexander@example.com" },
-                new Patient { FirstName = "Meredith", LastName = "Alonso", DateOfBirth = DateTime.Parse("1985-06-21"), Address = "456 Elm St", Email = "meredith.alonso@example.com" },
-                new Patient { FirstName = "Arturo", LastName = "Anand", DateOfBirth = DateTime.Parse("1978-11-03"), Address = "789 Pine St", Email = "arturo.anand@example.com" }
+                new Patient{FirstName="Carson", LastName="Alexander", DateOfBirth=DateTime.Parse("1990-09-01")},
+                new Patient{FirstName="Meredith", LastName="Alonso", DateOfBirth=DateTime.Parse("1985-06-21")},
+                new Patient{FirstName="Arturo", LastName="Anand", DateOfBirth=DateTime.Parse("1978-11-03")},
+                new Patient{FirstName="Gytis", LastName="Barzdukas", DateOfBirth=DateTime.Parse("1992-02-13")},
+                new Patient{FirstName="Yan", LastName="Li", DateOfBirth=DateTime.Parse("1982-07-07")}
             };
             context.Patients.AddRange(patients);
             context.SaveChanges();
@@ -29,68 +33,65 @@ namespace Healthcare.Data
             // Dodajanje zdravnikov
             var doctors = new Doctor[]
             {
-                new Doctor { FirstName = "John", LastName = "Doe", Specialty = "Cardiology", ContactNumber = "123-456-7890" },
-                new Doctor { FirstName = "Jane", LastName = "Smith", Specialty = "Dermatology", ContactNumber = "987-654-3210" },
-                new Doctor { FirstName = "Emily", LastName = "Johnson", Specialty = "Pediatrics", ContactNumber = "555-555-5555" }
+                new Doctor{FirstName="John", LastName="Smith", Specialty="Cardiologist", ContactNumber="123456789"},
+                new Doctor{FirstName="Anna", LastName="Jones", Specialty="Dermatologist", ContactNumber="987654321"}
             };
             context.Doctors.AddRange(doctors);
             context.SaveChanges();
 
-            // Dodajanje terminov
+            // Dodajanje srečanj (appointments)
             var appointments = new Appointment[]
             {
-                new Appointment { AppointmentDate = DateTime.Now.AddDays(1), Reason = "Routine Checkup", PatientID = patients[0].PatientID, DoctorID = doctors[0].DoctorID },
-                new Appointment { AppointmentDate = DateTime.Now.AddDays(2), Reason = "Skin Rash", PatientID = patients[1].PatientID, DoctorID = doctors[1].DoctorID },
-                new Appointment { AppointmentDate = DateTime.Now.AddDays(3), Reason = "Child Fever", PatientID = patients[2].PatientID, DoctorID = doctors[2].DoctorID }
+                new Appointment{PatientID=patients[0].PatientID, DoctorID=doctors[0].DoctorID, AppointmentDate=DateTime.Parse("2024-11-28"), Reason="Checkup"},
+                new Appointment{PatientID=patients[1].PatientID, DoctorID=doctors[1].DoctorID, AppointmentDate=DateTime.Parse("2024-11-29"), Reason="Skin Issue"},
+                new Appointment{PatientID=patients[2].PatientID, DoctorID=doctors[0].DoctorID, AppointmentDate=DateTime.Parse("2024-11-30"), Reason="Heart Check"},
+                new Appointment{PatientID=patients[3].PatientID, DoctorID=doctors[1].DoctorID, AppointmentDate=DateTime.Parse("2024-12-01"), Reason="Rash Treatment"},
+                new Appointment{PatientID=patients[4].PatientID, DoctorID=doctors[0].DoctorID, AppointmentDate=DateTime.Parse("2024-12-02"), Reason="Blood Pressure"}
             };
             context.Appointments.AddRange(appointments);
             context.SaveChanges();
 
-            // Dodajanje vlog
+            // Dodajanje vlog (roles) za Identity
             var roles = new IdentityRole[]
             {
-                new IdentityRole { Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
-                new IdentityRole { Name = "Doctor", NormalizedName = "DOCTOR" },
-                new IdentityRole { Name = "Patient", NormalizedName = "PATIENT" }
+                new IdentityRole{Id="1", Name="Administrator", NormalizedName="ADMINISTRATOR"},
+                new IdentityRole{Id="2", Name="Patient", NormalizedName="PATIENT"},
+                new IdentityRole{Id="3", Name="Staff", NormalizedName="STAFF"}
             };
-            foreach (var role in roles)
+            context.Roles.AddRange(roles);
+            context.SaveChanges();
+
+            // Ustvarjanje uporabnika (HealthcareUser)
+            var user = new HealthcareUser
             {
-                if (!context.Roles.Any(r => r.Name == role.Name))
-                {
-                    context.Roles.Add(role);
-                }
+                FirstName = "Bob",
+                LastName = "Dilon",
+                City = "Ljubljana",
+                Email = "bob@example.com",
+                NormalizedEmail = "BOB@EXAMPLE.COM",
+                UserName = "bob@example.com",
+                NormalizedUserName = "BOB@EXAMPLE.COM",
+                PhoneNumber = "+111111111111",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+            };
+
+            if (!context.Users.Any(u => u.UserName == user.UserName))
+            {
+                var password = new PasswordHasher<HealthcareUser>();
+                user.PasswordHash = password.HashPassword(user, "123!");
+                context.Users.Add(user);
             }
             context.SaveChanges();
 
-            // Ustvarjanje uporabnikov
-            var users = new HealthcareUser[]
+            // Dodeljevanje vlog uporabniku
+            var userRoles = new IdentityUserRole<string>[]
             {
-                new HealthcareUser { FirstName = "Admin", LastName = "User", Email = "admin@admin.si", UserName = "admin@admin.si", EmailConfirmed = true },
-                new HealthcareUser { FirstName = "Doctor", LastName = "User", Email = "doctor@zdravnik.si", UserName = "doctor@zdravnik.si", EmailConfirmed = true },
-                new HealthcareUser { FirstName = "Patient", LastName = "User", Email = "patient@example.com", UserName = "patient@example.com", EmailConfirmed = true }
+                new IdentityUserRole<string>{RoleId = roles[0].Id, UserId=user.Id},
+                new IdentityUserRole<string>{RoleId = roles[1].Id, UserId=user.Id}
             };
-
-            var passwordHasher = new PasswordHasher<HealthcareUser>();
-            foreach (var user in users)
-            {
-                if (!context.Users.Any(u => u.UserName == user.UserName))
-                {
-                    user.PasswordHash = passwordHasher.HashPassword(user, "123!");
-                    context.Users.Add(user);
-                    context.SaveChanges();
-
-                    // Dodeljevanje ustrezne vloge
-                    string roleName = user.Email.Contains("@admin.si") ? "Administrator" :
-                                      user.Email.Contains("@zdravnik.si") ? "Doctor" : "Patient";
-                    var roleId = context.Roles.Single(r => r.Name == roleName).Id;
-
-                    context.UserRoles.Add(new IdentityUserRole<string>
-                    {
-                        UserId = user.Id,
-                        RoleId = roleId
-                    });
-                }
-            }
+            context.UserRoles.AddRange(userRoles);
             context.SaveChanges();
         }
     }

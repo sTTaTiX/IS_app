@@ -1,11 +1,11 @@
-﻿@model Healthcare.Models.Appointment
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Healthcare</title>
-    
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <!-- Lasten CSS -->
@@ -13,14 +13,15 @@
     <!-- Stil za Healthcare -->
     <link rel="stylesheet" href="~/Healthcare.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <!-- Navigacija -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Healthcare</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -29,22 +30,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                asp-action="Privacy">Privacy</a>
+                        </li>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="Index">Appointments</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Appointment"
+                                asp-action="Index">Appointments</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Patient" asp-action="Index">Patients</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Patients"
+                                asp-action="Index">Patients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="Index">Doctors</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Index">Profil</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Doctor"
+                                asp-action="Index">Doctors</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" /></partial>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -74,4 +77,5 @@
     <!-- Dinamični skripti za posamezne strani -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
