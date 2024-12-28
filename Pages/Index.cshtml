@@ -1,0 +1,25 @@
+﻿@page
+@model HealthcareApp.Pages.IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    @if (Model.UserRoles != null && Model.UserRoles.Count > 0)
+    {
+        <p><strong>Your Roles:</strong></p>
+        <ul>
+            @foreach (var role in Model.UserRoles)
+            {
+                <li>@role</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>You do not have any roles assigned.</p>
+    }
+</div>

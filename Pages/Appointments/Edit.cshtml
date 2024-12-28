@@ -1,0 +1,50 @@
+@page
+@model HealthcareApp.Pages_Appointments.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Appointment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Appointment.AppointmentID" />
+            <div class="form-group">
+                <label asp-for="Appointment.AppointmentDate" class="control-label"></label>
+                <input asp-for="Appointment.AppointmentDate" class="form-control" />
+                <span asp-validation-for="Appointment.AppointmentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Appointment.Reason" class="control-label"></label>
+                <input asp-for="Appointment.Reason" class="form-control" />
+                <span asp-validation-for="Appointment.Reason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Appointment.PatientID" class="control-label"></label>
+                <select asp-for="Appointment.PatientID" class="form-control" asp-items="Model.Patients"></select>
+                <span asp-validation-for="Appointment.PatientID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Appointment.DoctorID" class="control-label"></label>
+                <select asp-for="Appointment.DoctorID" class="form-control" asp-items="Model.Doctors"></select>
+                <span asp-validation-for="Appointment.DoctorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

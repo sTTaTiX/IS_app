@@ -1,0 +1,42 @@
+@page
+@model HealthcareApp.Pages.Users.IndexModel
+@{
+    ViewData["Title"] = "Users List";
+}
+
+<h1>Users List</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Change Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.FullName</td>
+                <td>@user.Email</td>
+                <td>
+                    @string.Join(", ", user.Roles)
+                </td>
+                <td>
+                    <form method="post" asp-page-handler="ChangeRole" asp-route-userId="@user.UserId">
+                        <select name="Role" class="form-control">
+                            <option value="Administrator">Administrator</option>
+                            <option value="Doctor">Doctor</option>
+                            <option value="Patient">Patient</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-2">Change Role</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
