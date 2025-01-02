@@ -13,9 +13,9 @@ namespace HealthcareApp.Pages_Doctors
     [Authorize(Roles="Administrator, Doctor")]
     public class IndexModel : PageModel
     {
-        private readonly Healthcare.Models.HealthcareContext _context;
+        private readonly Healthcare.Data.HealthcareContext _context;
 
-        public IndexModel(Healthcare.Models.HealthcareContext context)
+        public IndexModel(Healthcare.Data.HealthcareContext context)
         {
             _context = context;
         }

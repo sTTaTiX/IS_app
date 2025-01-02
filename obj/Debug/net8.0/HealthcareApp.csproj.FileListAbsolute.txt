@@ -266,3 +266,8 @@ C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\runtimes\win\lib\net
 C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\Users\blaz2\Desktop\nigga\HealthcareApp\obj\Debug\net8.0\HealthcareApp.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\blaz2\Desktop\nigga\HealthcareApp\obj\Debug\net8.0\HealthcareApp.sourcelink.json
+C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\blaz2\Desktop\nigga\HealthcareApp\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll

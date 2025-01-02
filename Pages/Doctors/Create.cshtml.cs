@@ -13,9 +13,9 @@ namespace HealthcareApp.Pages_Doctors
     [Authorize(Roles="Administrator")]
     public class CreateModel : PageModel
     {
-        private readonly Healthcare.Models.HealthcareContext _context;
+        private readonly Healthcare.Data.HealthcareContext _context;
 
-        public CreateModel(Healthcare.Models.HealthcareContext context)
+        public CreateModel(Healthcare.Data.HealthcareContext context)
         {
             _context = context;
         }

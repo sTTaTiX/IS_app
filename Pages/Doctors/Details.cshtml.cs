@@ -13,9 +13,9 @@ namespace HealthcareApp.Pages_Doctors
     [Authorize(Roles="Administrator, Doctor")]
     public class DetailsModel : PageModel
     {
-        private readonly Healthcare.Models.HealthcareContext _context;
+        private readonly Healthcare.Data.HealthcareContext _context;
 
-        public DetailsModel(Healthcare.Models.HealthcareContext context)
+        public DetailsModel(Healthcare.Data.HealthcareContext context)
         {
             _context = context;
         }

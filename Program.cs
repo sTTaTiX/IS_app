@@ -2,6 +2,7 @@ using Healthcare.Data;
 using Healthcare.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("HealthcareContext") ?? throw new InvalidOperationException("Connection string 'HealthcareContext' not found.");
 
 // Dodaj storitve za EF Core in Identity
-builder.Services.AddDbContext<HealthcareContext>(options =>
-    options.UseSqlServer(connectionString)); // Poveži se z SQL Serverjem
+builder.Services.AddDbContext<HealthcareContext>(options =>options.UseSqlServer(connectionString)); // Poveži se z SQL Serverjem
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>() // Dodaj podporo za vloge
@@ -20,6 +20,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 // Inicializiraj bazo podatkov z DbInitializer
@@ -38,7 +39,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 app.UseRouting();
 
 app.UseAuthentication(); // Dodaj avtentifikacijo

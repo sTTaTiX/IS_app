@@ -1,9 +1,8 @@
-using Healthcare.Data;
+
 using Healthcare.Models;
 using System;
 using System.Linq;
 using Microsoft.AspNetCore.Identity;
-
 namespace Healthcare.Data;
 
 public static class DbInitializer

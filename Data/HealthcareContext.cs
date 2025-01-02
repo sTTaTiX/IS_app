@@ -1,7 +1,8 @@
+using Healthcare.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Healthcare.Models
+namespace Healthcare.Data
 {
     public class HealthcareContext : IdentityDbContext<ApplicationUser>
     {

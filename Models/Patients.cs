@@ -1,3 +1,4 @@
+using Healthcare.Data;
 namespace Healthcare.Models
 {
     public class Patient

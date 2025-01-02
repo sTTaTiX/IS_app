@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
 using Microsoft.AspNetCore.Authorization;
-
+using Healthcare.Data;
 namespace HealthcareApp.Pages_Patients
 {
     [Authorize(Roles="Administrator")]
     public class IndexModel : PageModel
     {
-        private readonly Healthcare.Models.HealthcareContext _context;
+        private readonly Healthcare.Data.HealthcareContext _context;
 
-        public IndexModel(Healthcare.Models.HealthcareContext context)
+        public IndexModel(Healthcare.Data.HealthcareContext context)
         {
             _context = context;
         }
@@ -24,7 +24,12 @@ namespace HealthcareApp.Pages_Patients
 
         public async Task OnGetAsync()
         {
-            Patient = await _context.Patients.ToListAsync();
+            Patient = await _context.Patients.AsNoTracking().ToListAsync();
+        }
+        public async Task<JsonResult> OnGetPatientsJsonAsync()
+        {
+            var patients = await _context.Patients.AsNoTracking().ToListAsync();
+            return new JsonResult(patients);
         }
     }
 }

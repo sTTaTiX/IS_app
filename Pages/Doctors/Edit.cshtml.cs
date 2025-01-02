@@ -14,9 +14,9 @@ namespace HealthcareApp.Pages_Doctors
     [Authorize(Roles="Administrator")]
     public class EditModel : PageModel
     {
-        private readonly Healthcare.Models.HealthcareContext _context;
+        private readonly Healthcare.Data.HealthcareContext _context;
 
-        public EditModel(Healthcare.Models.HealthcareContext context)
+        public EditModel(Healthcare.Data.HealthcareContext context)
         {
             _context = context;
         }
