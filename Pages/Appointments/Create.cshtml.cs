@@ -1,5 +1,6 @@
 using Healthcare.Data;
 using Healthcare.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HealthcareApp.Pages_Appointments
 {
+    [Authorize(Roles="Administrator, Doctor")]
     public class CreateModel(HealthcareContext context) : PageModel
     {
         private readonly HealthcareContext _context = context;

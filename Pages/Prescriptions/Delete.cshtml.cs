@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HealthcareApp.Pages_Prescriptions
 {
+    [Authorize(Roles="Administrator, Doctor")]
     public class DeleteModel : PageModel
     {
         private readonly Healthcare.Data.HealthcareContext _context;

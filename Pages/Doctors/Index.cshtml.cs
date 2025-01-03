@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace HealthcareApp.Pages_Doctors
 {
-    [Authorize(Roles="Administrator, Doctor")]
+    
     public class IndexModel : PageModel
     {
         private readonly Healthcare.Data.HealthcareContext _context;

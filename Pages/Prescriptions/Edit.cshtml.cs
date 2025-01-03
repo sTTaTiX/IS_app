@@ -1,5 +1,6 @@
 using Healthcare.Data;
 using Healthcare.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HealthcareApp.Pages_Prescriptions
 {
+    [Authorize(Roles="Administrator, Doctor")]
     public class EditModel : PageModel
     {
         private readonly HealthcareContext _context;

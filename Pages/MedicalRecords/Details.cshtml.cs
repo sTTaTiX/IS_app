@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HealthcareApp.Pages_MedicalRecords
 {
+    [Authorize(Roles="Administrator, Patient, Doctor")]
     public class DetailsModel : PageModel
     {
         private readonly Healthcare.Data.HealthcareContext _context;
