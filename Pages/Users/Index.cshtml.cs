@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HealthcareApp.Pages.Users
 {
-    [Authorize(Roles="Administrator")]
+    [Authorize(Policy = "RequireAdministratorRole")]
     public class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
