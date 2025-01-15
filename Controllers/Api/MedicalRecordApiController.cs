@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Healthcare.Data;
 using Healthcare.Models;
+using Healthcare.web.Filters;
 
 namespace HealthcareApp.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiKeyAuth]
     public class MedicalRecordApiController : ControllerBase
     {
         private readonly HealthcareContext _context;
