@@ -106,3 +106,6 @@ namespace HealthcareApp.Controllers_Api
         }
     }
 }
+
+//dotnet aspnet-codegenerator controller -name PrescriptionApiController -async -api -m Healthcare.Models.Prescription -dc Healthcare.Data.HealthcareContext -outDir Controllers/Api
+
